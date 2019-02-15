@@ -1,12 +1,12 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
-import { Request, Response } from "express";
+import {Request, Response} from "express";
 import * as http from 'http';
 
-const app:express.Application = express();
+const app: express.Application = express();
 
 const mockData = {
-    a:1, b:2
+    a: 1, b: 2
 }
 
 app.get('/', (req: Request, res: Response) => {
@@ -18,7 +18,7 @@ app.get('/test', (req: Request, res: Response) => {
 });
 
 
-let httpPort = 3000;
+let httpPort = process.env.PORT || 9000;
 app.set("port", httpPort);
 let httpServer = http.createServer(app);
 
