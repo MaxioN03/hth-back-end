@@ -84,7 +84,7 @@ app.get('/test', (req, res) => {
 });
 let httpPort = 3000;
 app.set("port", httpPort);
-var httpServer = http.createServer(app);
+let httpServer = http.createServer(app);
 //listen on provided ports
 httpServer.listen(httpPort, (data) => {
     console.log(`Listening on port ${httpPort}`);

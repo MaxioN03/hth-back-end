@@ -20,7 +20,7 @@ app.get('/test', (req: Request, res: Response) => {
 
 let httpPort = 3000;
 app.set("port", httpPort);
-var httpServer = http.createServer(app);
+let httpServer = http.createServer(app);
 
 //listen on provided ports
 httpServer.listen(httpPort, (data) => {
