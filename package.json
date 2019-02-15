@@ -2,12 +2,13 @@
   "name": "hthback",
   "version": "0.1.0",
   "description": "hth backend",
-  "main": "./dist/index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:prod": "webpack --config webpack.config.prod.js",
     "build:dev": "webpack --config webpack.config.js",
-    "watch": "webpack-watch-server --config webpack.config.js"
+    "watch": "webpack-watch-server --config webpack.config.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
