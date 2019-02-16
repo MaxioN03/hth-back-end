@@ -31,6 +31,7 @@ app.use(function(req, res, next) {
 
     next();
 });
+
 app.get('/', (req: Request, res: Response) => {
     res.status(200).json({status: "ok"});
 });
