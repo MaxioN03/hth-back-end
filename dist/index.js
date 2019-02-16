@@ -116454,6 +116454,55 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./src/API/User.ts":
+/*!*************************!*\
+  !*** ./src/API/User.ts ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DAO_models_User__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../DAO/models/User */ "./src/DAO/models/User.ts");
+
+var express = __webpack_require__(/*! express */ "./node_modules/express/index.js");
+var router = express.Router();
+var userRouter = router.get('/getById', function (req, res) {
+    var data = req.query;
+    var id = data.id;
+    _DAO_models_User__WEBPACK_IMPORTED_MODULE_0__["default"].getById(id).then(function (user) {
+        res.status(200).json(user);
+    }).catch(function (error) { return res.status(400).json(error); });
+})
+    .get('/getAll', function (req, res) {
+    _DAO_models_User__WEBPACK_IMPORTED_MODULE_0__["default"].getAll().then(function (users) {
+        res.status(200).json(users);
+    }).catch(function (error) { return res.status(400).json(error); });
+})
+    .post('/add', function (req, res) {
+    var data = req.body;
+    _DAO_models_User__WEBPACK_IMPORTED_MODULE_0__["default"].add(data).then(function (response) {
+        res.status(200).json(response);
+    }).catch(function (error) { return res.status(400).json(error); });
+})
+    .post('/update', function (req, res) {
+    var data = req.body;
+    _DAO_models_User__WEBPACK_IMPORTED_MODULE_0__["default"].update(data).then(function (response) {
+        res.status(200).json(response);
+    }).catch(function (error) { return res.status(400).json(error); });
+})
+    .get('/delete', function (req, res) {
+    var data = req.query;
+    var id = data.id;
+    _DAO_models_User__WEBPACK_IMPORTED_MODULE_0__["default"].delete(id).then(function (user) {
+        res.status(200).json(user);
+    }).catch(function (error) { return res.status(400).json(error); });
+});
+/* harmony default export */ __webpack_exports__["default"] = (userRouter);
+
+
+/***/ }),
+
 /***/ "./src/DAO/models/User.ts":
 /*!********************************!*\
   !*** ./src/DAO/models/User.ts ***!
@@ -116473,18 +116522,31 @@ var User = mongoose.model('User', userSchema);
 var UserDAO = /** @class */ (function () {
     function UserDAO() {
     }
-    UserDAO.create = function (obj) {
-        var user = new User(obj);
-        return user;
-        // console.log('user', user);
-        // user.save((err, user) => {
-        //     if (err) {
-        //         console.log('err', err)
-        //     }
-        //     console.log('saved user', user)
-        // })
+    UserDAO.getById = function (id) {
+        return User.findById(id).then(function (response) {
+            return response;
+        }).catch(function (error) { return error; });
     };
-    UserDAO.getById = function (is) {
+    UserDAO.getAll = function () {
+        return User.find().then(function (response) {
+            return response;
+        }).catch(function (error) { return error; });
+    };
+    UserDAO.delete = function (id) {
+        return User.findByIdAndRemove(id).then(function (response) {
+            return response;
+        }).catch(function (error) { return error; });
+    };
+    UserDAO.update = function (obj) {
+        return User.findByIdAndUpdate(obj._id, obj, { new: true })
+            .then(function (response) {
+            return response;
+        }).catch(function (error) { return error; });
+    };
+    UserDAO.add = function (obj) {
+        return new User(obj).save().then(function (response) {
+            return response;
+        }).catch(function (error) { return error; });
     };
     return UserDAO;
 }());
@@ -116508,12 +116570,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! http */ "http");
 /* harmony import */ var http__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(http__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _DAO_models_User__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DAO/models/User */ "./src/DAO/models/User.ts");
+/* harmony import */ var _API_User__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./API/User */ "./src/API/User.ts");
 
 
 
 
-console.log('UserDAO start', _DAO_models_User__WEBPACK_IMPORTED_MODULE_3__["default"]);
 var app = express__WEBPACK_IMPORTED_MODULE_1__();
 app.use(body_parser__WEBPACK_IMPORTED_MODULE_0__["json"]());
 app.use(body_parser__WEBPACK_IMPORTED_MODULE_0__["urlencoded"]({ extended: false }));
@@ -116526,22 +116587,14 @@ db.on('error', function (err) {
 });
 db.once('open', function () {
     console.log('MongoDB connected');
-    console.log(_DAO_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].create({ first_name: 'Yahor', last_name: 'Kutz' }));
 });
-var mockData = {
-    a: 1, b: 2, c: 3
-};
 app.get('/', function (req, res) {
     res.status(200).json({ status: "ok" });
 });
-app.get('/test', function (req, res) {
-    var userExample = _DAO_models_User__WEBPACK_IMPORTED_MODULE_3__["default"].create({ first_name: 'Yahor', last_name: 'Kutz' });
-    res.status(200).json(userExample);
-});
+app.use('/user', _API_User__WEBPACK_IMPORTED_MODULE_3__["default"]);
 var httpPort = process.env.PORT || 9000;
 app.set("port", httpPort);
 var httpServer = http__WEBPACK_IMPORTED_MODULE_2__["createServer"](app);
-//listen on provided ports
 httpServer.listen(httpPort, function (data) {
     console.log("Listening on port " + httpPort);
 });
