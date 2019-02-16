@@ -23,6 +23,8 @@ db.once('open', () => {
 
 
 app.get('/', (req: Request, res: Response) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
     res.status(200).json({status: "ok"});
 });
 app.use('/user', userRouter);
