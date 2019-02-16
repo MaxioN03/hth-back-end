@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <style type="text/css">
+textarea{
+    resize: none;
+    height: 150px;
+    width: 400px;
+}
+</style>
+</head>
+<body>
+    <div>
+        <p><b>Ищешь волонтёра?</b></p>
+        <p><b>Заполни форму ниже!</b></p>
+        <p>ФИО/Наименование компании:</p>
+        <input type="text">
+        <p>Категория:</p>
+        <select>
+            <option value="Социальная помощь">Социальная помощь</option>
+            <option value="Для компаний">Для компаний</option>
+            <option value="Для старт-апов">Для стартапов</option>
+            <option value="Междунароная деятельность">Междунароная деятельность</option>
+            <option value="Междунароная деятельность">Концерты</option>
+        </select>
+        <p>Название мероприятия/проекта:</p>
+         <input type="text">
+        <p>Количество человек:</p>
+         <input type="number" min="1">
+        <p>Дата и время:</p>
+        <input type="datetime-local">
+        <p>Требования к кандидатам:</p>
+        <textarea></textarea>
+        <p>Описание:</p>
+        <textarea></textarea>
+        <p><button>Добавить</button></p>
+    </div>
+</body>
+</html>
