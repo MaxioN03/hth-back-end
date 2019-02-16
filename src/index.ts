@@ -3,6 +3,7 @@ import * as express from "express";
 import {Request, Response} from "express";
 import * as http from 'http';
 import userRouter from './API/User'
+import taskRouter from './API/Task'
 const app: express.Application = express();
 
 app.use(bodyParser.json());
@@ -28,6 +29,7 @@ app.get('/', (req: Request, res: Response) => {
     res.status(200).json({status: "ok"});
 });
 app.use('/user', userRouter);
+app.use('/task', taskRouter);
 
 
 let httpPort = process.env.PORT || 9000;
