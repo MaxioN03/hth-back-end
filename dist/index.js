@@ -116595,7 +116595,7 @@ app.use('/user', _API_User__WEBPACK_IMPORTED_MODULE_3__["default"]);
 var httpPort = process.env.PORT || 9000;
 app.set("port", httpPort);
 var httpServer = http__WEBPACK_IMPORTED_MODULE_2__["createServer"](app);
-httpServer.listen(httpPort, function (data) {
+httpServer.listen(httpPort, function () {
     console.log("Listening on port " + httpPort);
 });
 
