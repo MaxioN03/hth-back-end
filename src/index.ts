@@ -4,6 +4,7 @@ import {Request, Response} from "express";
 import * as http from 'http';
 import userRouter from './API/User'
 import taskRouter from './API/Task'
+import companyRouter from "./API/Company";
 const app: express.Application = express();
 
 app.use(bodyParser.json());
@@ -37,6 +38,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 app.use('/user', userRouter);
 app.use('/task', taskRouter);
+app.use('/company', companyRouter);
 
 
 let httpPort = process.env.PORT || 9000;

@@ -1,14 +1,9 @@
-import {Task} from "./Task";
-import {Runtime} from "inspector";
-
-
 const mongoose = require('mongoose');
 
 const companySchema = mongoose.Schema({
     company_name: String,
     category: String,
     project_name: String,
-    time: Date,
     date: Date,
     city: String,
     require: String,
@@ -22,7 +17,6 @@ interface ICompany {
     company_name: string;
     category: string;
     project_name: string;
-    time: number,
     date: number,
     city: string,
     require: string,

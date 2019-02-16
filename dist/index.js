@@ -116454,6 +116454,55 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./src/API/Company.ts":
+/*!****************************!*\
+  !*** ./src/API/Company.ts ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DAO_models_Company__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../DAO/models/Company */ "./src/DAO/models/Company.ts");
+
+var express = __webpack_require__(/*! express */ "./node_modules/express/index.js");
+var router = express.Router();
+var companyRouter = router.get('/getById', function (req, res) {
+    var data = req.query;
+    var id = data.id;
+    _DAO_models_Company__WEBPACK_IMPORTED_MODULE_0__["default"].getById(id).then(function (task) {
+        res.status(200).json(task);
+    }).catch(function (error) { return res.status(400).json(error); });
+})
+    .get('/getAll', function (req, res) {
+    _DAO_models_Company__WEBPACK_IMPORTED_MODULE_0__["default"].getAll().then(function (tasks) {
+        res.status(200).json(tasks);
+    }).catch(function (error) { return res.status(400).json(error); });
+})
+    .post('/add', function (req, res) {
+    var data = req.body;
+    _DAO_models_Company__WEBPACK_IMPORTED_MODULE_0__["default"].add(data).then(function (response) {
+        res.status(200).json(response);
+    }).catch(function (error) { return res.status(400).json(error); });
+})
+    .post('/update', function (req, res) {
+    var data = req.body;
+    _DAO_models_Company__WEBPACK_IMPORTED_MODULE_0__["default"].update(data).then(function (response) {
+        res.status(200).json(response);
+    }).catch(function (error) { return res.status(400).json(error); });
+})
+    .get('/delete', function (req, res) {
+    var data = req.query;
+    var id = data.id;
+    _DAO_models_Company__WEBPACK_IMPORTED_MODULE_0__["default"].delete(id).then(function (task) {
+        res.status(200).json(task);
+    }).catch(function (error) { return res.status(400).json(error); });
+});
+/* harmony default export */ __webpack_exports__["default"] = (companyRouter);
+
+
+/***/ }),
+
 /***/ "./src/API/Task.ts":
 /*!*************************!*\
   !*** ./src/API/Task.ts ***!
@@ -116548,6 +116597,63 @@ var userRouter = router.get('/getById', function (req, res) {
     }).catch(function (error) { return res.status(400).json(error); });
 });
 /* harmony default export */ __webpack_exports__["default"] = (userRouter);
+
+
+/***/ }),
+
+/***/ "./src/DAO/models/Company.ts":
+/*!***********************************!*\
+  !*** ./src/DAO/models/Company.ts ***!
+  \***********************************/
+/*! exports provided: Company, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Company", function() { return Company; });
+var mongoose = __webpack_require__(/*! mongoose */ "./node_modules/mongoose/index.js");
+var companySchema = mongoose.Schema({
+    company_name: String,
+    category: String,
+    project_name: String,
+    date: Date,
+    city: String,
+    require: String,
+    description: String
+});
+var Company = mongoose.model('Company', companySchema);
+var CompanyDAO = /** @class */ (function () {
+    function CompanyDAO() {
+    }
+    CompanyDAO.getById = function (id) {
+        return Company.findById(id).then(function (response) {
+            return response;
+        }).catch(function (error) { return error; });
+    };
+    CompanyDAO.getAll = function () {
+        return Company.find().then(function (response) {
+            return response;
+        }).catch(function (error) { return error; });
+    };
+    CompanyDAO.delete = function (id) {
+        return Company.findByIdAndRemove(id).then(function (response) {
+            return response;
+        }).catch(function (error) { return error; });
+    };
+    CompanyDAO.update = function (obj) {
+        return Company.findByIdAndUpdate(obj._id, obj, { new: true })
+            .then(function (response) {
+            return response;
+        }).catch(function (error) { return error; });
+    };
+    CompanyDAO.add = function (obj) {
+        return new Company(obj).save().then(function (response) {
+            return response;
+        }).catch(function (error) { return error; });
+    };
+    return CompanyDAO;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (CompanyDAO);
 
 
 /***/ }),
@@ -116674,6 +116780,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var http__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(http__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _API_User__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./API/User */ "./src/API/User.ts");
 /* harmony import */ var _API_Task__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./API/Task */ "./src/API/Task.ts");
+/* harmony import */ var _API_Company__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./API/Company */ "./src/API/Company.ts");
+
 
 
 
@@ -116704,6 +116812,7 @@ app.get('/', function (req, res) {
 });
 app.use('/user', _API_User__WEBPACK_IMPORTED_MODULE_3__["default"]);
 app.use('/task', _API_Task__WEBPACK_IMPORTED_MODULE_4__["default"]);
+app.use('/company', _API_Company__WEBPACK_IMPORTED_MODULE_5__["default"]);
 var httpPort = process.env.PORT || 9000;
 app.set("port", httpPort);
 var httpServer = http__WEBPACK_IMPORTED_MODULE_2__["createServer"](app);
