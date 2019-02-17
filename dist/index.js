@@ -116619,7 +116619,8 @@ var companySchema = mongoose.Schema({
     date: Date,
     city: String,
     require: String,
-    description: String
+    description: String,
+    number_of_participants: Number
 });
 var Company = mongoose.model('Company', companySchema);
 var CompanyDAO = /** @class */ (function () {

@@ -7,7 +7,8 @@ const companySchema = mongoose.Schema({
     date: Date,
     city: String,
     require: String,
-    description: String
+    description: String,
+    number_of_participants: Number
 });
 
 export const Company = mongoose.model('Company', companySchema);
@@ -21,7 +22,7 @@ interface ICompany {
     city: string,
     require: string,
     description: string
-
+    number_of_participants: number
 }
 
 export default class CompanyDAO {
